@@ -14,6 +14,11 @@ resource "aws_codebuild_project" "frontend" {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "aws/codebuild/nodejs:10.14.1"
     type         = "LINUX_CONTAINER"
+
+    environment_variable {
+      name  = "REACT_APP_QUIZ_API_URL"
+      value = "${data.terraform_remote_state.infra.lb_endpoints[0]}"
+    }
   }
 }
 
